@@ -1,0 +1,242 @@
+{
+    "info": {
+        "name": "WebWizards - Cake Shop API",
+        "_postman_id": "webwizards-cake-shop",
+        "description": "API collection for WebWizards' Cake Shop application",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [{
+            "name": "Authentication",
+            "description": "User authentication endpoints",
+            "item": [{
+                    "name": "Register",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }],
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/register",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "register"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Test User\",\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Login",
+                    "event": [{
+                        "listen": "test",
+                        "script": {
+                            "type": "text/javascript",
+                            "exec": [
+                                "var jsonData = pm.response.json();",
+                                "if (jsonData.data && jsonData.data.token) {",
+                                "    pm.environment.set(\"token\", jsonData.data.token);",
+                                "}"
+                            ]
+                        }
+                    }],
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                            "key": "Content-Type",
+                            "value": "application/json"
+                        }],
+                        "url": {
+                            "raw": "{{baseUrl}}/auth/login",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["auth", "login"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"password123\"\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Products",
+            "description": "Product management endpoints",
+            "item": [{
+                    "name": "Get All Products",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/products?page=1&limit=10",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["products"],
+                            "query": [{
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "category",
+                                    "value": "Birthday",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "basePrice",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "order",
+                                    "value": "asc",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Product Categories",
+                    "request": {
+                        "method": "GET",
+                        "url": {
+                            "raw": "{{baseUrl}}/products/categories",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["products", "categories"]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Product (Admin)",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/products",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["products"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"Classic Birthday Cake\",\n  \"category\": \"Birthday\",\n  \"description\": \"A delicious traditional birthday cake\",\n  \"basePrice\": 49.99,\n  \"sizes\": [\"Small\", \"Medium\", \"Large\"],\n  \"flavors\": [\"Vanilla\", \"Chocolate\"],\n  \"customizable\": true\n}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Orders",
+            "description": "Order management endpoints",
+            "item": [{
+                    "name": "Create Order",
+                    "request": {
+                        "method": "POST",
+                        "header": [{
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/orders",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["orders"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"cakeType\": \"Birthday\",\n  \"size\": \"Medium\",\n  \"flavor\": \"Chocolate\",\n  \"message\": \"Happy Birthday!\",\n  \"deliveryDate\": \"2024-12-25\",\n  \"deliveryTime\": \"Morning\",\n  \"price\": 65.00\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Get My Orders",
+                    "request": {
+                        "method": "GET",
+                        "header": [{
+                            "key": "Authorization",
+                            "value": "Bearer {{token}}"
+                        }],
+                        "url": {
+                            "raw": "{{baseUrl}}/orders",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["orders"]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Order",
+                    "request": {
+                        "method": "PUT",
+                        "header": [{
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{baseUrl}}/orders/{{orderId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["orders", "{{orderId}}"]
+                        },
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"specialInstructions\": \"Please add sprinkles\",\n  \"status\": \"Confirmed\"\n}"
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Order",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [{
+                            "key": "Authorization",
+                            "value": "Bearer {{token}}"
+                        }],
+                        "url": {
+                            "raw": "{{baseUrl}}/orders/{{orderId}}",
+                            "host": ["{{baseUrl}}"],
+                            "path": ["orders", "{{orderId}}"]
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [{
+            "listen": "prerequest",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "type": "text/javascript",
+                "exec": [""]
+            }
+        }
+    ],
+    "variable": [{
+        "key": "baseUrl",
+        "value": "http://localhost:5000/api",
+        "type": "string"
+    }]
+}
