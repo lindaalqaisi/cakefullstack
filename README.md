@@ -48,7 +48,7 @@ cake-shop/
 ### Backend Setup
 ```bash
 # Clone the repository
-git clone https://github.com/lindaalqaisi/cake-shop.git
+git clone https://github.com/lindaalqaisi/cakefullstack.git
 
 # Navigate to backend directory
 cd cake-shop/cake-shop-backend
