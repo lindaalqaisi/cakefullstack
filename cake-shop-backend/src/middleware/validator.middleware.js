@@ -17,63 +17,65 @@ export const orderValidator = [
     body('price').isNumeric().withMessage('Valid price is required')
 ];
 
-export const validateProduct = [
-    body('name')
-    .trim()
-    .notEmpty()
-    .withMessage('Product name is required')
-    .isLength({ max: 100 })
-    .withMessage('Product name must be less than 100 characters'),
 
-    body('category')
-    .trim()
-    .notEmpty()
-    .withMessage('Category is required')
-    .isIn(['Birthday', 'Wedding', 'Custom', 'Cupcakes'])
-    .withMessage('Invalid category'),
+export const validateProduct = (req, res, next) => {
+    const { name, category, description, basePrice, sizes, flavors } = req.body;
 
-    body('description')
-    .trim()
-    .notEmpty()
-    .withMessage('Description is required')
-    .isLength({ max: 500 })
-    .withMessage('Description must be less than 500 characters'),
+    // Required fields
+    if (!name || !category || !description || !basePrice) {
+        return res.status(400).json({
+            success: false,
+            message: 'Missing required fields'
+        });
+    }
 
-    body('basePrice')
-    .isNumeric()
-    .withMessage('Price must be a number')
-    .custom(value => value > 0)
-    .withMessage('Price must be greater than 0'),
+    // Category validation
+    const validCategories = ['Birthday', 'Wedding', 'Custom', 'Cupcakes'];
+    if (!validCategories.includes(category)) {
+        return res.status(400).json({
+            success: false,
+            message: 'Invalid category'
+        });
+    }
 
-    body('sizes')
-    .optional()
-    .isArray()
-    .withMessage('Sizes must be an array'),
+    // Size validation
+    const validSizes = ['Small', 'Medium', 'Large', 'Extra Large', '6 Pack', '12 Pack'];
+    if (sizes && sizes.length > 0) {
+        const invalidSizes = sizes.filter(size => !validSizes.includes(size));
+        if (invalidSizes.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: `Invalid sizes: ${invalidSizes.join(', ')}`
+            });
+        }
+    }
 
-    body('sizes.*')
-    .isIn(['Small', 'Medium', 'Large', 'Extra Large', '6 Pack', '12 Pack'])
-    .withMessage('Invalid size'),
+    // Base price validation
+    if (typeof basePrice !== 'number' || basePrice <= 0) {
+        return res.status(400).json({
+            success: false,
+            message: 'Base price must be a positive number'
+        });
+    }
 
-    body('flavors')
-    .optional()
-    .isArray()
-    .withMessage('Flavors must be an array'),
+    // Name length validation
+    if (name.length > 100) {
+        return res.status(400).json({
+            success: false,
+            message: 'Name cannot be more than 100 characters'
+        });
+    }
 
-    body('customizable')
-    .optional()
-    .isBoolean()
-    .withMessage('Customizable must be a boolean'),
+    // Description length validation
+    if (description.length > 500) {
+        return res.status(400).json({
+            success: false,
+            message: 'Description cannot be more than 500 characters'
+        });
+    }
 
-    body('images')
-    .optional()
-    .isArray()
-    .withMessage('Images must be an array'),
-
-    body('images.*')
-    .isURL()
-    .withMessage('Invalid image URL')
-];
-
+    next();
+};
 
 
 export const validateUpdateProfile = [

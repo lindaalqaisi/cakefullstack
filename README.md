@@ -3,6 +3,7 @@
 ## Overview
 WebWizards Cake Shop is a comprehensive web application developed as part of COMP229 - Web Application Development course. The platform allows users to browse, customize, and order cakes while providing administrators with robust tools for managing products and orders.
 
+
 ## 🚀 Team Members
 | Name | Role |
 |------|------|
@@ -10,7 +11,100 @@ WebWizards Cake Shop is a comprehensive web application developed as part of COM
 | **Linda Qaisi** | Frontend/Backend Lead |
 | **Matthew Kool** | Full Stack Developer |
 
-## 📁 Project Structure
+## 🎨 Frontend Preview
+
+### Home Page
+![Home Page](./screenshots/home.png)
+Our welcoming home page features:
+- Hero section with featured products
+- Category showcase
+- Special offers section
+- Custom cake designer
+- Testimonials from happy customers
+
+### Products Catalog
+![Products Page](./screenshots/products.png)
+Browse our extensive catalog with:
+- Filter by category
+- Search functionality
+- Price sorting
+- Responsive grid layout
+- Quick view options
+
+### Product Details
+![Product Details](./screenshots/details.png)
+Detailed product view includes:
+- High-quality images
+- Size selection
+- Flavor options
+- Customization choices
+- Add to cart functionality
+
+### Authentication
+![Login Page](./screenshots/login.png)
+Secure user authentication with:
+- User registration
+- Login functionality
+- Password recovery
+- Social media login options
+- JWT-based security
+
+## 🎨 Frontend Features
+- **Modern Design**: Clean and intuitive user interface using Tailwind CSS
+- **Responsive Layout**: Perfect viewing experience across all devices
+- **State Management**: Efficient data handling with React Query
+- **Form Handling**: Smooth form interactions with React Hook Form
+- **Real-time Updates**: Dynamic content updates without page refresh
+- **Error Handling**: User-friendly error messages and loading states
+- **Image Optimization**: Fast loading optimized images
+- **Cart Management**: Persistent shopping cart with local storage
+- **Admin Dashboard**: Comprehensive product and order management
+
+## 🛠️ Frontend Technology Stack
+- **Framework**: React.js with Vite
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **State Management**: React Query
+- **Form Handling**: React Hook Form
+- **Routing**: React Router DOM
+- **HTTP Client**: Axios
+- **Authentication**: JWT with Cookie storage
+
+## 📱 Frontend Structure
+```
+cake-shop-frontend/
+├── src/
+│   ├── components/        # Reusable UI components
+│   ├── context/          # React context providers
+│   ├── pages/            # Page components
+│   ├── services/         # API services
+│   ├── utils/            # Utility functions
+│   ├── assets/           # Images and static files
+│   └── App.jsx          # Main application component
+├── tailwind.config.js    # Tailwind configuration
+└── vite.config.js       # Vite configuration
+```
+
+## 🚀 Frontend Setup
+```bash
+# Navigate to frontend directory
+cd cake-shop-frontend
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Overview of Backend Work
+
+
+
+## 📁 Project Structure Backend
 ```
 cake-shop/
 ├── cake-shop-backend/      # Backend API
